@@ -33,17 +33,7 @@ function Snippet:evaluate()
 	end
 
 	if type(self.body) == "function" then
-		local res = self.body()
-
-		if type(res) == "string" then
-			return res
-		end
-
-		if type(res) == "table" then
-			return table.concat(res, "\n")
-		end
-
-		return ""
+		return self.body()
 	end
 
 	return ""
