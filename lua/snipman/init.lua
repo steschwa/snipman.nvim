@@ -1,33 +1,35 @@
 local Snippet = require("snipman.snippet")
 
+---@alias snipman.SnippetByFileType table<string, table<[string, snipman.SnippetBody]>>
+
 ---@class snipman.Instance
----@field snippetsByFileType table<string, snipman.Snippet[]>
+---@field snippets_by_ft table<string, snipman.Snippet[]>
 local M = {}
 
 ---@class snipman.SetupOpts
----@field snippetsByFileType table<string, table<[string, snipman.SnippetBody]>>
+---@field snippets_by_ft? snipman.SnippetByFileType
 
 ---@param opts snipman.SetupOpts
 function M.setup(opts)
 	---@type table<string, snipman.Snippet[]>
-	local snippetsByFileType = {}
-	for filetype, snippets in pairs(opts.snippetsByFileType) do
-		if not snippetsByFileType[filetype] then
-			snippetsByFileType[filetype] = {}
+	local snippets_by_ft = {}
+	for filetype, snippets in pairs(opts.snippets_by_ft or {}) do
+		if not snippets_by_ft[filetype] then
+			snippets_by_ft[filetype] = {}
 		end
 
 		for _, snippet_config in ipairs(snippets) do
 			local snippet = Snippet.new(snippet_config[1], snippet_config[2])
-			table.insert(snippetsByFileType[filetype], snippet)
+			table.insert(snippets_by_ft[filetype], snippet)
 		end
 	end
 
-	M.snippetsByFileType = snippetsByFileType
+	M.snippets_by_ft = snippets_by_ft
 end
 
 ---@return snipman.Snippet[]
 function M.get_current_snippets()
-	return M.snippetsByFileType[vim.bo.filetype] or {}
+	return M.snippets_by_ft[vim.bo.filetype] or {}
 end
 
 return M
