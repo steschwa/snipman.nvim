@@ -63,7 +63,7 @@ Once installed, `snipman.nvim` should be configured with your custom snippets:
 }
 ```
 
-To actually use the snippets you have enable the `blink.cmp` integration.
+To actually use the snippets you have to enable the `blink.cmp` integration.
 Add the following to your existing `blink.cmp` configuration:
 
 ```lua
