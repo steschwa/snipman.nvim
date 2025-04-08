@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2025-04-08
+
+### 📚 Documentation
+
+- Add README
+
+### ⚙️ Miscellaneous Tasks
+
+- LICENSE
+- Remove tag prefix
+
 ## [0.1.0] - 2025-04-07
 
 ### 🚀 Features
