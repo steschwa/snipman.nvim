@@ -29,8 +29,21 @@ Once installed, `snipman.nvim` should be configured with your custom snippets:
 {
     snippets_by_ft = {
         javascript = {
-            { "log", "console.log($0)" }, -- snippets can be plain strings
-            { "date", function() return string.format("the current date is: %s", os.date()) end }, -- or custom functions that evaluate at insertion time
+            -- snippets can be plain strings
+            {
+                "log",
+                "console.log($0)"
+            },
+
+            -- or custom functions that evaluate at insertion time
+            {
+                "date",
+                function()
+                    return string.format("the current date is: %s", os.date())
+                end
+            },
+
+            -- snippets can even be multi-line for better readability
             {
                 "comp",
                 {
@@ -40,7 +53,7 @@ Once installed, `snipman.nvim` should be configured with your custom snippets:
                     "   $0",
                     "}"
                 }
-            } -- snippets can even be multi-line for better readability
+            }
 
             -- add more snippets as needed
         },
