@@ -21,7 +21,13 @@ end
 ---@param filetype string
 ---@return snipman.Snippet[]
 function SnippetMap:get(filetype)
-	return self.snippets_by_ft[filetype] or {}
+	local ft_snippets = self.snippets_by_ft[filetype] or {}
+	local all_snippets = self.snippets_by_ft["all"] or {}
+
+	return {
+		unpack(all_snippets),
+		unpack(ft_snippets),
+	}
 end
 
 return SnippetMap
