@@ -1,55 +1,36 @@
 local Snippet = require("snipman.snippet")
+local SnippetMap = require("snipman.snippet_map")
 
----@alias snipman.SnippetByFileType table<string, table<[string, snipman.SnippetBody]>>
-
----@class snipman.SnippetByFileTypeBuilder
----@field snippets_by_ft snipman.SnippetByFileType
-local SnippetByFileTypeBuilder = {}
-
-function SnippetByFileTypeBuilder.new()
-	return setmetatable({
-		snippets_by_ft = {},
-	}, { __index = SnippetByFileTypeBuilder })
-end
-
----@param filetype string
----@param snippet snipman.Snippet
-function SnippetByFileTypeBuilder:add(filetype, snippet)
-	if not self.snippets_by_ft[filetype] then
-		self.snippets_by_ft[filetype] = {}
-	end
-
-	table.insert(self.snippets_by_ft[filetype], snippet)
-end
-
-function SnippetByFileTypeBuilder:build()
-	return self.snippets_by_ft
-end
+---@alias snipman.SnippetInit table<[string, snipman.SnippetBody]>
 
 ---@class snipman.Instance
----@field snippets_by_ft table<string, snipman.Snippet[]>
+---@field snippets snipman.SnippetMap
 local M = {}
 
 ---@class snipman.SetupOpts
----@field snippets_by_ft? snipman.SnippetByFileType
+---@field snippets_by_ft? table<string, snipman.SnippetInit[]>
 
 ---@param opts snipman.SetupOpts
 function M.setup(opts)
-	local builder = SnippetByFileTypeBuilder.new()
+	M.snippets = SnippetMap.new()
 
 	for filetype, snippets in pairs(opts.snippets_by_ft or {}) do
-		for _, snippet_config in ipairs(snippets) do
-			local snippet = Snippet.new(snippet_config[1], snippet_config[2])
-			builder:add(filetype, snippet)
-		end
+		M.add_snippets(filetype, snippets)
 	end
+end
 
-	M.snippets_by_ft = builder:build()
+---@param filetype string
+---@param snippets snipman.SnippetInit[]
+function M.add_snippets(filetype, snippets)
+	for _, snippet_init in ipairs(snippets) do
+		local snippet = Snippet.new(snippet_init[1], snippet_init[2])
+		M.snippets:add(filetype, snippet)
+	end
 end
 
 ---@return snipman.Snippet[]
 function M.get_current_snippets()
-	return M.snippets_by_ft[vim.bo.filetype] or {}
+	return M.snippets:get(vim.bo.filetype)
 end
 
 return M
