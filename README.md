@@ -87,7 +87,7 @@ Add the following to your existing `blink.cmp` configuration:
 
 ### Parameters
 
-- `snippets_by_ft` (type: `snipman.SnippetByFileType`): A table where each table-key is a filetype (determined by `vim.bo.filetype`)
+- `snippets_by_ft` (type: `table<string, snipman.SnippetInit[]>`): A table where each table-key is a filetype (determined by `vim.bo.filetype`)
   and the value is an array of `table<[string, snipman.SnippetBody]>` containing the snippet-trigger as first element and the snippet-body as second.
   See [https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax)
   for details about the snippet syntax.
@@ -96,12 +96,19 @@ Add the following to your existing `blink.cmp` configuration:
 <summary>Types</summary>
 
 ```lua
----@alias snipman.SnippetByFileType table<string, table<[string, snipman.SnippetBody]>>
+---@class snipman.SetupOpts
+---@field snippets_by_ft? table<string, snipman.SnippetInit[]>
+
+---@alias snipman.SnippetInit table<[string, snipman.SnippetBody]>
 
 ---@alias snipman.SnippetBody string | string[] | fun():string
 ```
 
 </details>
+
+## API
+
+- `require("snipman").add_snippets(filetype, snippets)`: add snippets dynamically (make sure `setup` has been called)
 
 ## License
 
