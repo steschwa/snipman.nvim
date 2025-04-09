@@ -89,6 +89,7 @@ Add the following to your existing `blink.cmp` configuration:
 
 - `snippets_by_ft` (type: `table<string, snipman.SnippetInit[]>`): A table where each table-key is a filetype (determined by `vim.bo.filetype`)
   and the value is an array of `table<[string, snipman.SnippetBody]>` containing the snippet-trigger as first element and the snippet-body as second.
+  The special value `"all"` can be used to add a snippet to all filetypes.
   See [https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax)
   for details about the snippet syntax.
 
