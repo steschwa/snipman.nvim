@@ -15,6 +15,7 @@ To install `snipman.nvim`, you can use your preferred plugin manager. For exampl
 ```lua
 return {
     "steschwa/snipman.nvim",
+    version = "*",
     opts = {
         -- see below for the full configuration reference
     }
