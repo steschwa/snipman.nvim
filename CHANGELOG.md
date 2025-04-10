@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2025-04-10
+
+### 🐛 Bug Fixes
+
+- Omitting global snippets resulted in no snippets at all
+
+### 🚜 Refactor
+
+- Rename
+
+### 📚 Documentation
+
+- Install on new version
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove print
+
 ## [0.2.0] - 2025-04-09
 
 ### 🚀 Features
