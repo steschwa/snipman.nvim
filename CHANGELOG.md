@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2025-04-10
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove print
+
 ## [0.2.1] - 2025-04-10
 
 ### 🐛 Bug Fixes
