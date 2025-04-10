@@ -17,13 +17,15 @@ function Source:get_completions(_, callback)
 		---@type lsp.CompletionItem
 		local item = {
 			label = snippet.prefix,
-			kind = require("blink.cmp.types").CompletionItemKind.Snippet,
+			kind = vim.lsp.protocol.CompletionItemKind.Snippet,
 			insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
-			insertText = snippet:to_expandable(),
+			insertText = snippet:evaluate(),
 		}
 
 		table.insert(items, item)
 	end
+
+	vim.print(vim.inspect(snippets))
 
 	callback({
 		items = items,

@@ -15,13 +15,13 @@ function Snippet.new(prefix, body)
 end
 
 ---@return string
-function Snippet:to_expandable()
-	local snippet = self:evaluate()
+function Snippet:evaluate()
+	local snippet = self:to_string()
 	return vim.trim(snippet)
 end
 
 ---@return string
-function Snippet:evaluate()
+function Snippet:to_string()
 	if type(self.body) == "string" then
 		local body = self.body --[[@as string]]
 		return body
