@@ -1,3 +1,5 @@
+local Utils = require("snipman.utils")
+
 ---@class snipman.SnippetMap
 ---@field snippets_by_ft table<string, snipman.Snippet[]>
 local SnippetMap = {}
@@ -24,10 +26,7 @@ function SnippetMap:get(filetype)
 	local ft_snippets = self.snippets_by_ft[filetype] or {}
 	local all_snippets = self.snippets_by_ft["all"] or {}
 
-	return {
-		unpack(all_snippets),
-		unpack(ft_snippets),
-	}
+	return Utils.table_merge(ft_snippets, all_snippets)
 end
 
 return SnippetMap
