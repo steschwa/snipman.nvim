@@ -25,8 +25,6 @@ function Source:get_completions(_, callback)
 		table.insert(items, item)
 	end
 
-	vim.print(vim.inspect(snippets))
-
 	callback({
 		items = items,
 		is_incomplete_backward = false,
