@@ -17,6 +17,29 @@ function M.setup(opts)
 	for filetype, snippets in pairs(opts.snippets_by_ft or {}) do
 		M.add_snippets(filetype, snippets)
 	end
+
+	vim.api.nvim_create_user_command("SnipmanListBuf", function()
+		local ft = vim.bo.filetype
+		local ft_snippets = M.snippets:get(ft)
+
+		vim.print("filetype: " .. ft)
+		if #ft_snippets == 0 then
+			vim.print("no snippets configured")
+		end
+		for i, snippet in ipairs(ft_snippets) do
+			vim.print(string.format("\t%d. %s", i, snippet.prefix))
+		end
+
+		local all_snippets = M.snippets:get("all")
+
+		vim.print("all filetypes")
+		if #ft_snippets == 0 then
+			vim.print("no snippets configured")
+		end
+		for i, snippet in ipairs(all_snippets) do
+			vim.print(string.format("\t%d. %s", i, snippet.prefix))
+		end
+	end, {})
 end
 
 ---@param filetype string
