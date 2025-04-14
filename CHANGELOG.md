@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2025-04-14
+
+### 🚀 Features
+
+- List buf snippets
+
+### 🐛 Bug Fixes
+
+- Merge all snippets
+
 ## [0.2.2] - 2025-04-10
 
 ### ⚙️ Miscellaneous Tasks
