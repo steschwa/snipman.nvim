@@ -1,5 +1,3 @@
-local Instance = require("snipman")
-
 ---@module "blink.cmp"
 ---@class blink.cmp.Source
 local Source = {}
@@ -12,7 +10,7 @@ function Source:get_completions(_, callback)
 	---@type lsp.CompletionItem[]
 	local items = {}
 
-	local snippets = Instance.get_current_snippets()
+	local snippets = require("snipman").get_current_snippets()
 	for _, snippet in ipairs(snippets) do
 		---@type lsp.CompletionItem
 		local item = {
