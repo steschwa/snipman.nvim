@@ -40,6 +40,12 @@ function M.setup(opts)
 			vim.print(string.format("\t%d. %s", i, snippet.prefix))
 		end
 	end, {})
+
+	vim.api.nvim_create_autocmd("FileType", {
+		callback = function()
+			M.snippets:load(vim.bo.filetype)
+		end,
+	})
 end
 
 ---@param filetype string
