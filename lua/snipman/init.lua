@@ -32,7 +32,7 @@ function M.setup(opts)
 
 		local all_snippets = M.snippets:get("all")
 
-		vim.print("all filetypes")
+		vim.print("all filetypes:")
 		if #ft_snippets == 0 then
 			vim.print("no snippets configured")
 		end
