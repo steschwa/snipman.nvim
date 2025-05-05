@@ -46,6 +46,8 @@ function M.setup(opts)
 			M.snippets:load(vim.bo.filetype)
 		end,
 	})
+
+	M.snippets:load(vim.bo.filetype)
 end
 
 ---@param filetype string
