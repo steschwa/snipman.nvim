@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2025-05-05
+
+### 🐛 Bug Fixes
+
+- Load current filetype on setup
+
 ## [0.4.0] - 2025-05-01
 
 ### 🚀 Features
