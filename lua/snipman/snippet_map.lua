@@ -1,5 +1,3 @@
-local Snippet = require("snipman.snippet")
-
 ---@class snipman.SnippetMap
 ---@field snippets_by_ft table<string, snipman.Snippet[]>
 ---@field loaded_ft table<string>
@@ -39,43 +37,6 @@ function SnippetMap:get(filetype)
 	end
 
 	return snippets
-end
-
----@param filetype string
-function SnippetMap:load(filetype)
-	if vim.list_contains(self.loaded_ft, filetype) then
-		return
-	end
-
-	table.insert(self.loaded_ft, filetype)
-
-	local config_path = vim.fn.stdpath("config")
-	local snippet_file = vim.fs.joinpath(config_path, "snippets", string.format("%s.lua", filetype))
-
-	---@diagnostic disable-next-line: undefined-field
-	local stat = vim.uv.fs_stat(snippet_file)
-	if not stat or stat.type ~= "file" then
-		return
-	end
-
-	local exec, err = loadfile(snippet_file)
-	if err or not exec then
-		return
-	end
-
-	local ok, res = pcall(exec)
-	if not ok then
-		return
-	end
-
-	if type(res) ~= "table" then
-		return
-	end
-
-	for _, snippet_init in ipairs(res) do
-		local snippet = Snippet.new(snippet_init[1], snippet_init[2])
-		self:add(filetype, snippet)
-	end
 end
 
 return SnippetMap

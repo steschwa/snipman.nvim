@@ -1,19 +1,22 @@
 local Snippet = require("snipman.snippet")
 local SnippetMap = require("snipman.snippet_map")
+local FileLoader = require("snipman.file_loader")
 
 ---@alias snipman.SnippetInit table<[string, snipman.SnippetBody]>
 
 ---@class snipman.Instance
 ---@field snippets snipman.SnippetMap
-local M = {}
+---@field loaded_ft table<string>
+local M = {
+	snippets = SnippetMap.new(),
+	loaded_ft = {},
+}
 
 ---@class snipman.SetupOpts
 ---@field snippets_by_ft? table<string, snipman.SnippetInit[]>
 
 ---@param opts snipman.SetupOpts
 function M.setup(opts)
-	M.snippets = SnippetMap.new()
-
 	for filetype, snippets in pairs(opts.snippets_by_ft or {}) do
 		M.add_snippets(filetype, snippets)
 	end
@@ -43,11 +46,11 @@ function M.setup(opts)
 
 	vim.api.nvim_create_autocmd("FileType", {
 		callback = function()
-			M.snippets:load(vim.bo.filetype)
+			M.load(vim.bo.filetype)
 		end,
 	})
 
-	M.snippets:load(vim.bo.filetype)
+	M.load(vim.bo.filetype)
 end
 
 ---@param filetype string
@@ -62,6 +65,23 @@ end
 ---@return snipman.Snippet[]
 function M.get_current_snippets()
 	return M.snippets:get(vim.bo.filetype)
+end
+
+---@param filetype string
+function M.load(filetype)
+	if vim.list_contains(M.loaded_ft, filetype) then
+		return
+	end
+
+	local files = vim.api.nvim_get_runtime_file("snippets/*.lua", true)
+
+	for _, path in ipairs(files) do
+		local snippets = FileLoader.load_path(path)
+		for _, snippet_init in ipairs(snippets) do
+			local snippet = Snippet.new(snippet_init[1], snippet_init[2])
+			M.snippets:add(filetype, snippet)
+		end
+	end
 end
 
 return M
