@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2025-05-07
+
+### 🚀 Features
+
+- Autoload snippets from rtp
+- Load all filetype on setup
+- Disable autoload without filetype
+
+### 🐛 Bug Fixes
+
+- Only load from runtime files for filetype
+- Store loaded filetype
+
+### 🚜 Refactor
+
+- Improve filetype formatting
+
 ## [0.4.1] - 2025-05-05
 
 ### 🐛 Bug Fixes
