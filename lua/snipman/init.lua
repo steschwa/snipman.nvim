@@ -70,6 +70,9 @@ end
 
 ---@param filetype string
 function M.load(filetype)
+	if vim.trim(filetype) == "" then
+		return
+	end
 	if vim.list_contains(M.loaded_ft, filetype) then
 		return
 	end
