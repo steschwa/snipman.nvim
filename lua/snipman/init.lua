@@ -74,6 +74,8 @@ function M.load(filetype)
 		return
 	end
 
+	table.insert(M.loaded_ft, filetype)
+
 	local files = vim.api.nvim_get_runtime_file(string.format("snippets/%s.lua", filetype), true)
 
 	for _, path in ipairs(files) do
