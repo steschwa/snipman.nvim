@@ -1,12 +1,10 @@
 ---@class snipman.SnippetMap
 ---@field snippets_by_ft table<string, snipman.Snippet[]>
----@field loaded_ft table<string>
 local SnippetMap = {}
 
 function SnippetMap.new()
 	return setmetatable({
 		snippets_by_ft = {},
-		loaded_ft = {},
 	}, { __index = SnippetMap })
 end
 
