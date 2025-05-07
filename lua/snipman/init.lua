@@ -25,7 +25,7 @@ function M.setup(opts)
 		local ft = vim.bo.filetype
 		local ft_snippets = M.snippets:get(ft)
 
-		vim.print("filetype: " .. ft)
+		vim.print(string.format("filetype (%s):", ft))
 		if #ft_snippets == 0 then
 			vim.print("no snippets configured")
 		end
