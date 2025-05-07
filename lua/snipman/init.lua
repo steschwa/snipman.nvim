@@ -74,7 +74,7 @@ function M.load(filetype)
 		return
 	end
 
-	local files = vim.api.nvim_get_runtime_file("snippets/*.lua", true)
+	local files = vim.api.nvim_get_runtime_file(string.format("snippets/%s.lua", filetype), true)
 
 	for _, path in ipairs(files) do
 		local snippets = FileLoader.load_path(path)
