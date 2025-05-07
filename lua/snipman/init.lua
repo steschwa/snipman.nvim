@@ -51,6 +51,7 @@ function M.setup(opts)
 	})
 
 	M.load(vim.bo.filetype)
+	M.load("all")
 end
 
 ---@param filetype string
