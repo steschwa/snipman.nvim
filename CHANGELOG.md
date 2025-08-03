@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.2] - 2025-08-03
+
+### 🚜 Refactor
+
+- Global snippets
+
+### 📚 Documentation
+
+- Document comments
+
 ## [0.5.1] - 2025-08-03
 
 ### 🚜 Refactor
