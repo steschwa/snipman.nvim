@@ -28,6 +28,10 @@ Once installed, `snipman.nvim` should be configured with your custom snippets:
 
 ```lua
 {
+    -- snippets that are usable for all languages / filetypes
+    snippets_for_all = {},
+
+    -- snippets for specific languages / filetypes only
     snippets_by_ft = {
         javascript = {
             -- snippets can be plain strings
@@ -56,10 +60,10 @@ Once installed, `snipman.nvim` should be configured with your custom snippets:
                 }
             }
 
-            -- add more snippets as needed
+            -- more snippets as needed ...
         },
 
-        -- add snippets for other file types
+        -- snippets for other file types ...
     }
 }
 ```
@@ -88,9 +92,10 @@ Add the following to your existing `blink.cmp` configuration:
 
 ### Parameters
 
+- `snippets_for_all` (type: `snipman.SnippetInit[]`): A list of snippets which are usable for any filetype.
+
 - `snippets_by_ft` (type: `table<string, snipman.SnippetInit[]>`): A table where each table-key is a filetype (determined by `vim.bo.filetype`)
   and the value is an array of `table<[string, snipman.SnippetBody]>` containing the snippet-trigger as first element and the snippet-body as second.
-  The special value `"all"` can be used to add a snippet to all filetypes.
   See [https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax)
   for details about the snippet syntax.
 
@@ -100,6 +105,7 @@ Add the following to your existing `blink.cmp` configuration:
 ```lua
 ---@class snipman.SetupOpts
 ---@field snippets_by_ft? table<string, snipman.SnippetInit[]>
+---@field snippets_for_all? snipman.SnippetInit[]
 
 ---@alias snipman.SnippetInit table<[string, snipman.SnippetBody]>
 

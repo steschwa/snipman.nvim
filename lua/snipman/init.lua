@@ -14,11 +14,17 @@ local M = {
 
 ---@class snipman.SetupOpts
 ---@field snippets_by_ft? table<string, snipman.SnippetInit[]>
+---@field snippets_for_all? snipman.SnippetInit[]
 
 ---@param opts snipman.SetupOpts
 function M.setup(opts)
 	for filetype, snippets in pairs(opts.snippets_by_ft or {}) do
 		M.add_snippets(filetype, snippets)
+	end
+
+	for _, snippet_init in pairs(opts.snippets_for_all or {}) do
+		local snippet = Snippet.new(snippet_init[1], snippet_init[2])
+		M.snippets:add_all(snippet)
 	end
 
 	vim.api.nvim_create_user_command("SnipmanListBuf", function()
