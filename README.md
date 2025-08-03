@@ -114,6 +114,10 @@ Add the following to your existing `blink.cmp` configuration:
 
 </details>
 
+## Commands
+
+- `:SnipmanListBuf`: list available snippets for the current buffer
+
 ## API
 
 - `require("snipman").add_snippets(filetype, snippets)`: add snippets dynamically (make sure `setup` has been called)
