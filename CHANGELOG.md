@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] - 2025-08-03
+
+### 🚜 Refactor
+
+- Separate storage for universal snippets
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove unused prop
+- Inline evaluate
+
 ## [0.5.0] - 2025-05-07
 
 ### 🚀 Features
