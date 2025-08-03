@@ -1,10 +1,12 @@
 ---@class snipman.SnippetMap
 ---@field snippets_by_ft table<string, snipman.Snippet[]>
+---@field snippets_for_all snipman.Snippet[]
 local SnippetMap = {}
 
 function SnippetMap.new()
 	return setmetatable({
 		snippets_by_ft = {},
+		snippets_for_all = {},
 	}, { __index = SnippetMap })
 end
 
@@ -18,14 +20,18 @@ function SnippetMap:add(filetype, snippet)
 	table.insert(self.snippets_by_ft[filetype], snippet)
 end
 
+---@param snippet snipman.Snippet
+function SnippetMap:add_all(snippet)
+	table.insert(self.snippets_for_all, snippet)
+end
+
 ---@param filetype string
 ---@return snipman.Snippet[]
-function SnippetMap:get(filetype)
+function SnippetMap:get_for_ft(filetype)
 	---@type snipman.Snippet[]
 	local snippets = {}
 
-	local all_snippets = self.snippets_by_ft["all"] or {}
-	for _, value in ipairs(all_snippets) do
+	for _, value in ipairs(self.snippets_for_all) do
 		table.insert(snippets, value)
 	end
 
@@ -35,6 +41,11 @@ function SnippetMap:get(filetype)
 	end
 
 	return snippets
+end
+
+---@return snipman.Snippet[]
+function SnippetMap:get_for_all()
+	return self.snippets_for_all
 end
 
 return SnippetMap

@@ -23,9 +23,9 @@ function M.setup(opts)
 
 	vim.api.nvim_create_user_command("SnipmanListBuf", function()
 		local ft = vim.bo.filetype
-		local ft_snippets = M.snippets:get(ft)
+		local ft_snippets = M.snippets:get_for_ft(ft)
 
-		vim.print(string.format("filetype (%s):", ft))
+		vim.print(ft .. ":")
 		if #ft_snippets == 0 then
 			vim.print("no snippets configured")
 		end
@@ -33,10 +33,10 @@ function M.setup(opts)
 			vim.print(string.format("\t%d. %s", i, snippet.prefix))
 		end
 
-		local all_snippets = M.snippets:get("all")
+		local all_snippets = M.snippets:get_for_all()
 
-		vim.print("all filetypes:")
-		if #ft_snippets == 0 then
+		vim.print("all:")
+		if #all_snippets == 0 then
 			vim.print("no snippets configured")
 		end
 		for i, snippet in ipairs(all_snippets) do
@@ -65,7 +65,7 @@ end
 
 ---@return snipman.Snippet[]
 function M.get_current_snippets()
-	return M.snippets:get(vim.bo.filetype)
+	return M.snippets:get_for_ft(vim.bo.filetype)
 end
 
 ---@param filetype string
