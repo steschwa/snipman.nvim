@@ -74,24 +74,29 @@ function M.get_current_snippets()
 	return M.snippets:get_for_ft(vim.bo.filetype)
 end
 
----@param filetype string
-function M.load(filetype)
-	if vim.trim(filetype) == "" then
+---@param name string|"all"
+function M.load(name)
+	if vim.trim(name) == "" then
 		return
 	end
-	if vim.list_contains(M.loaded_ft, filetype) then
+	if vim.list_contains(M.loaded_ft, name) then
 		return
 	end
 
-	table.insert(M.loaded_ft, filetype)
+	table.insert(M.loaded_ft, name)
 
-	local files = vim.api.nvim_get_runtime_file(string.format("snippets/%s.lua", filetype), true)
+	local files = vim.api.nvim_get_runtime_file(string.format("snippets/%s.lua", name), true)
 
 	for _, path in ipairs(files) do
 		local snippets = FileLoader.load_path(path)
 		for _, snippet_init in ipairs(snippets) do
 			local snippet = Snippet.new(snippet_init[1], snippet_init[2])
-			M.snippets:add(filetype, snippet)
+
+			if name == "all" then
+				M.snippets:add_all(snippet)
+			else
+				M.snippets:add(name, snippet)
+			end
 		end
 	end
 end
