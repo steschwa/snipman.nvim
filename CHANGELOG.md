@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.3] - 2025-08-04
+
+### 🐛 Bug Fixes
+
+- Initial load all snippets
+
 ## [0.5.2] - 2025-08-03
 
 ### 🚜 Refactor
